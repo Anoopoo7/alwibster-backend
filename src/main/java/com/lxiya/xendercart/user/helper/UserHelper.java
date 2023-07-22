@@ -9,6 +9,7 @@ package com.lxiya.xendercart.user.helper;
 
 import org.springframework.beans.BeanUtils;
 
+import com.lxiya.xendercart.organization.model.constants.RoleConstances;
 import com.lxiya.xendercart.user.model.request.UserRequest;
 import com.lxiya.xendercart.user.model.view.UserView;
 import com.lxiya.xendercart.user.persistance.entity.User;
@@ -22,6 +23,7 @@ public class UserHelper {
         user.setActive(true);
         user.setEnabled(true);
         user.setFirstOrder(true);
+        user.setRole(RoleConstances.customer);
         user.setPassword(PasswordEncoder.encode(user.getPassword()));
         return user;
     }

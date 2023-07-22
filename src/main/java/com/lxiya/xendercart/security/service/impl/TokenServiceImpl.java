@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.lxiya.xendercart.core.constances.TokenConstance;
 import com.lxiya.xendercart.core.errors.TokenErrors;
+import com.lxiya.xendercart.organization.model.constants.RoleConstances;
 import com.lxiya.xendercart.organization.service.OrganizationService;
 import com.lxiya.xendercart.security.model.requests.TokenRequest;
 import com.lxiya.xendercart.security.model.views.AutherizedUser;
@@ -39,7 +40,7 @@ public class TokenServiceImpl implements TokenService {
         UserView userView = new UserView();
         userView.setId(id != null ? id : UUID.randomUUID().toString());
         userView.setAnonymous(true);
-        userView.setRole(TokenConstance.anonymous);
+        userView.setRole(RoleConstances.anonymous);
         return userView;
     }
 

@@ -8,6 +8,8 @@
 package com.lxiya.xendercart.security.config;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -16,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -59,8 +61,11 @@ public class JwtTokenValidation extends OncePerRequestFilter {
         TokenData tokenData = JwtUtils.decriptToken(token);
         AutherizedUser user = tokenService.findAutherizedUser(tokenData);
         if (null != user) {
+            List<GrantedAuthority> authorities = user.getRoles().stream()
+                    .map(CustomAuthority::new)
+                    .collect(Collectors.toList());
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                    user, null, null);
+                    user, authorities, authorities);
             usernamePasswordAuthenticationToken
                     .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
