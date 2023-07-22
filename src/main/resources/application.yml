@@ -1,0 +1,10 @@
+server:
+  port: 8071
+  error:
+    include-stacktrace: never
+
+spring:
+  data:
+    mongodb:
+      uri: ${MONGO_URL:mongodb+srv://read_write_user:VEcb2I0iaeiQgKKXi96HN5g7vY0flLWJrpgvS7TyKjoS1UYW@xendercart.a8mxam3.mongodb.net/xender}
+
