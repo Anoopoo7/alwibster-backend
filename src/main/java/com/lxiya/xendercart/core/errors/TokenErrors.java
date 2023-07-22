@@ -16,4 +16,6 @@ public class TokenErrors {
 
     public static final String UNAUTHERIZED = "UnAutherized";
 
+    public static final String PERMISSION_DENIED = "Permission Denied";
+
 }

@@ -15,7 +15,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @Document(collection = "xen_users")
 public class User extends BaseEntity {
 
@@ -36,4 +36,6 @@ public class User extends BaseEntity {
     private boolean firstOrder;
 
     private boolean enableNotifications;
+
+    private String role;
 }

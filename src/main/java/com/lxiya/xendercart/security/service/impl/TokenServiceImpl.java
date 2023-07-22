@@ -7,6 +7,7 @@
 */
 package com.lxiya.xendercart.security.service.impl;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.validation.Valid;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.lxiya.xendercart.core.constances.TokenConstance;
 import com.lxiya.xendercart.core.errors.TokenErrors;
+import com.lxiya.xendercart.organization.service.OrganizationService;
 import com.lxiya.xendercart.security.model.requests.TokenRequest;
 import com.lxiya.xendercart.security.model.views.AutherizedUser;
 import com.lxiya.xendercart.security.model.views.TokenData;
@@ -30,11 +32,14 @@ public class TokenServiceImpl implements TokenService {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrganizationService organizationService;
 
     private UserView createAnonymousUser(String id) {
         UserView userView = new UserView();
         userView.setId(id != null ? id : UUID.randomUUID().toString());
         userView.setAnonymous(true);
+        userView.setRole(TokenConstance.anonymous);
         return userView;
     }
 
@@ -63,11 +68,15 @@ public class TokenServiceImpl implements TokenService {
         if (tokenData.isAnnonymus()) {
             UserView userView = this.createAnonymousUser(tokenData.getUserId());
             autherizedUser.setUser(userView);
+            List<String> permissions = organizationService.getPermissionsByRoles(userView.getRole());
+            autherizedUser.setRoles(permissions);
             return autherizedUser;
         }
         UserView userView = userService.getUser(tokenData.getUserId());
         if (null != userView) {
             autherizedUser.setUser(userView);
+            List<String> permissions = organizationService.getPermissionsByRoles(userView.getRole());
+            autherizedUser.setRoles(permissions);
             return autherizedUser;
         }
         throw new RuntimeException(TokenErrors.UNAUTHERIZED);

@@ -32,4 +32,6 @@ public class UserView {
 
     private boolean enableNotifications;
 
+    private String role;
+
 }
