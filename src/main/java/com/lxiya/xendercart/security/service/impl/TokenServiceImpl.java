@@ -10,8 +10,6 @@ package com.lxiya.xendercart.security.service.impl;
 import java.util.List;
 import java.util.UUID;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +38,7 @@ public class TokenServiceImpl implements TokenService {
     @Autowired
     private OrganizationService organizationService;
 
-    private UserView createAnonymousUser(String id) {
+    private UserView createAnonymousUser(final String id) {
         UserView userView = new UserView();
         userView.setId(id != null ? id : UUID.randomUUID().toString());
         userView.setAnonymous(true);
@@ -49,7 +47,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public TokenView createToken(@Valid TokenRequest tokenRequest) {
+    public TokenView createToken(final TokenRequest tokenRequest) {
         String email = tokenRequest.getEmail();
         String password = tokenRequest.getPassword();
         String userType = tokenRequest.getUserType();
@@ -69,7 +67,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public AutherizedUser findAutherizedUser(TokenData tokenData) {
+    public AutherizedUser findAutherizedUser(final TokenData tokenData) {
         AutherizedUser autherizedUser = new AutherizedUser();
         if (tokenData.isAnnonymus()) {
             UserView userView = this.createAnonymousUser(tokenData.getUserId());
@@ -89,7 +87,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public TokenView refreshToken(RefreshTokenRequest refreshTokenRequest) {
+    public TokenView refreshToken(final RefreshTokenRequest refreshTokenRequest) {
         String token = refreshTokenRequest.getRefresh();
         if (!JwtUtils.validateToken(token)) {
             log.error("F73EC781-2FEF-4DED-B22A-D815DE37A917 Invalid token");

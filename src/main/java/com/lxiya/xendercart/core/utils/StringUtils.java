@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class StringUtils {
 
-    public static boolean isBlank(String s) {
+    public static boolean isBlank(final String s) {
         return s.trim().isEmpty();
     }
 }

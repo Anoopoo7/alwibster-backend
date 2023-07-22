@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface OrganizationService {
 
-    List<String> getPermissionsByRoles(String role);
+    List<String> getPermissionsByRoles(final String role);
 
 }

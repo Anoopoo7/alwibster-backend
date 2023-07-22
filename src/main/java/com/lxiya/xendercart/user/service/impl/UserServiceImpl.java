@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public UserView createUser(UserRequest userRequest, HttpServletRequest request) {
+    public UserView createUser(final UserRequest userRequest, HttpServletRequest request) {
         log.info("091C5459-BA72-44F7-ABAE-6A9BB72B20B7 creating user with details : {}", userRequest);
         String email = userRequest.getEmail();
         String mobile = userRequest.getMobile();
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserView getUserByEmailAndPassword(String email, String password) {
+    public UserView getUserByEmailAndPassword(final String email, final String password) {
         log.info("EB82B5BE-8AA9-4760-B13F-A9465299658F finding user with email : " + email + " and password : "
                 + password);
         if (StringUtils.isBlank(email)) {
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserView getUser(String id) {
+    public UserView getUser(final String id) {
         log.info("839B7E40-543D-422F-BEB8-A27025738DCD fetching user with id : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new RuntimeException(UserErrors.USER_ID_INVALID);

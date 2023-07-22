@@ -14,10 +14,10 @@ import com.lxiya.xendercart.user.model.view.UserView;
 
 public interface UserService {
 
-    UserView createUser(UserRequest user, HttpServletRequest request);
+    UserView createUser(final UserRequest user, HttpServletRequest request);
 
-    UserView getUserByEmailAndPassword(String email, String password);
+    UserView getUserByEmailAndPassword(final String email, String password);
 
-    UserView getUser(String id);
+    UserView getUser(final String id);
 
 }

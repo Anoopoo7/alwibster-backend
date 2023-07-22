@@ -31,7 +31,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     private OrganizationDao organizationDao;
 
     @Override
-    public List<String> getPermissionsByRoles(String role) {
+    public List<String> getPermissionsByRoles(final String role) {
         Organization organization = organizationDao.getOrganizationRepository()
                 .findByCodeAndEnabledAndActive(OrganizationCodes.userRolesConfigurations.name(), true, true);
         if (null != organization) {

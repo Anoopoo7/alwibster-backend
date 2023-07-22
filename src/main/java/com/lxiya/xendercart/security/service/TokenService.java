@@ -7,8 +7,6 @@
 */
 package com.lxiya.xendercart.security.service;
 
-import javax.validation.Valid;
-
 import com.lxiya.xendercart.security.model.requests.RefreshTokenRequest;
 import com.lxiya.xendercart.security.model.requests.TokenRequest;
 import com.lxiya.xendercart.security.model.views.AutherizedUser;
@@ -17,10 +15,10 @@ import com.lxiya.xendercart.security.model.views.TokenView;
 
 public interface TokenService {
 
-    TokenView createToken(@Valid TokenRequest tokenRequest);
+    TokenView createToken(final TokenRequest tokenRequest);
 
-    AutherizedUser findAutherizedUser(TokenData tokenData);
+    AutherizedUser findAutherizedUser(final TokenData tokenData);
 
-    TokenView refreshToken(@Valid RefreshTokenRequest refreshTokenRequest);
+    TokenView refreshToken(final RefreshTokenRequest refreshTokenRequest);
 
 }

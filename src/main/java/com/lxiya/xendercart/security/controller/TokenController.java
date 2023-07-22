@@ -30,12 +30,12 @@ public class TokenController {
     private TokenService tokenService;
 
     @PostMapping
-    public TokenView createToken(@Valid @RequestBody TokenRequest tokenRequest) {
+    public TokenView createToken(@Valid @RequestBody final TokenRequest tokenRequest) {
         return tokenService.createToken(tokenRequest);
     }
 
     @PostMapping("/refresh")
-    public TokenView refreshToken(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
+    public TokenView refreshToken(@Valid @RequestBody final RefreshTokenRequest refreshTokenRequest) {
         return tokenService.refreshToken(refreshTokenRequest);
     }
 
