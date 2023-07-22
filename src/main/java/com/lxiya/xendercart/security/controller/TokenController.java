@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lxiya.xendercart.security.model.requests.RefreshTokenRequest;
 import com.lxiya.xendercart.security.model.requests.TokenRequest;
 import com.lxiya.xendercart.security.model.views.TokenView;
 import com.lxiya.xendercart.security.service.TokenService;
@@ -29,8 +30,13 @@ public class TokenController {
     private TokenService tokenService;
 
     @PostMapping
-    public TokenView createToken(@Valid @RequestBody TokenRequest tokenRequest) throws Exception {
+    public TokenView createToken(@Valid @RequestBody TokenRequest tokenRequest) {
         return tokenService.createToken(tokenRequest);
+    }
+
+    @PostMapping("/refresh")
+    public TokenView refreshToken(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
+        return tokenService.refreshToken(refreshTokenRequest);
     }
 
 }

@@ -18,4 +18,8 @@ public class TokenErrors {
 
     public static final String PERMISSION_DENIED = "Permission Denied";
 
+    public static final String TOKEN_NOT_FOUND = "Token not found";
+
+    public static final String TOKEN_INVALID = "Token Invalid";
+
 }

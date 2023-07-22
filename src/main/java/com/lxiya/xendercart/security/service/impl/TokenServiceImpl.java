@@ -19,6 +19,7 @@ import com.lxiya.xendercart.core.constances.TokenConstance;
 import com.lxiya.xendercart.core.errors.TokenErrors;
 import com.lxiya.xendercart.organization.model.constants.RoleConstances;
 import com.lxiya.xendercart.organization.service.OrganizationService;
+import com.lxiya.xendercart.security.model.requests.RefreshTokenRequest;
 import com.lxiya.xendercart.security.model.requests.TokenRequest;
 import com.lxiya.xendercart.security.model.views.AutherizedUser;
 import com.lxiya.xendercart.security.model.views.TokenData;
@@ -28,7 +29,10 @@ import com.lxiya.xendercart.security.utils.JwtUtils;
 import com.lxiya.xendercart.user.model.view.UserView;
 import com.lxiya.xendercart.user.service.UserService;
 
+import lombok.extern.log4j.Log4j2;
+
 @Service
+@Log4j2
 public class TokenServiceImpl implements TokenService {
 
     @Autowired
@@ -45,7 +49,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public TokenView createToken(@Valid TokenRequest tokenRequest) throws Exception {
+    public TokenView createToken(@Valid TokenRequest tokenRequest) {
         String email = tokenRequest.getEmail();
         String password = tokenRequest.getPassword();
         String userType = tokenRequest.getUserType();
@@ -56,11 +60,12 @@ public class TokenServiceImpl implements TokenService {
             userView = userService.getUserByEmailAndPassword(email, password);
         }
         if (null == userView) {
-            throw new Exception(TokenErrors.UNAUTHERIZED);
+            throw new RuntimeException(TokenErrors.UNAUTHERIZED);
         }
         String accessToken = JwtUtils.generateToken(userView, TokenConstance.access);
         String refreshToken = JwtUtils.generateToken(userView, TokenConstance.refresh);
-        return new TokenView(accessToken, refreshToken, null);
+        String permissions = organizationService.getPermissionsByRoles(userView.getRole()).toString();
+        return new TokenView(accessToken, refreshToken, permissions);
     }
 
     @Override
@@ -81,6 +86,23 @@ public class TokenServiceImpl implements TokenService {
             return autherizedUser;
         }
         throw new RuntimeException(TokenErrors.UNAUTHERIZED);
+    }
+
+    @Override
+    public TokenView refreshToken(RefreshTokenRequest refreshTokenRequest) {
+        String token = refreshTokenRequest.getRefresh();
+        if (!JwtUtils.validateToken(token)) {
+            log.error("F73EC781-2FEF-4DED-B22A-D815DE37A917 Invalid token");
+            throw new RuntimeException(TokenErrors.TOKEN_INVALID);
+        }
+        TokenData tokenData = JwtUtils.decriptToken(token);
+        AutherizedUser autherizedUser = this.findAutherizedUser(tokenData);
+        UserView userView = autherizedUser.getUser();
+        log.info("2271027D-DB5D-42B0-BF3C-1AD2870F4EA1 creating token for user : {}", userView.getId());
+        String accessToken = JwtUtils.generateToken(userView, TokenConstance.access);
+        String refreshToken = JwtUtils.generateToken(userView, TokenConstance.refresh);
+        String permissions = organizationService.getPermissionsByRoles(userView.getRole()).toString();
+        return new TokenView(accessToken, refreshToken, permissions);
     }
 
 }

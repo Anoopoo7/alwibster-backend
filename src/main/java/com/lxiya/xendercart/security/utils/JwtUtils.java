@@ -24,7 +24,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JwtUtils {
 
-    private static String SECRET_KEY = "1530EB07-EB74-439A-9B4A-7CD0A294261B";
+    private static String SECRET_KEY = "NTEzMEVCMDctRUI3NC00MzlBLTlCNEEtN0NEMEEyOTQyNjFC";
 
     private static Date expire(String type) {
         Calendar calendar = Calendar.getInstance();
