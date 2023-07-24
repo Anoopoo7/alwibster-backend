@@ -38,6 +38,7 @@ public class JwtUtils {
                 .claim("email", userView.getEmail())
                 .claim("userId", userView.getId())
                 .claim("annonymus", userView.isAnonymous())
+                .claim("tokenType", tokenType)
                 .setExpiration(expire(tokenType))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
@@ -57,7 +58,8 @@ public class JwtUtils {
         String email = (String) claims.get("email");
         String userId = (String) claims.get("userId");
         boolean annonymus = (boolean) claims.get("annonymus");
-        TokenData tokenData = new TokenData(email, userId, annonymus);
+        String tokenType = (String) claims.get("tokenType");
+        TokenData tokenData = new TokenData(email, userId, annonymus, tokenType);
         return tokenData;
     }
 }

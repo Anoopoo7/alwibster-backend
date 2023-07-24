@@ -24,6 +24,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.lxiya.xendercart.core.constances.TokenConstance;
 import com.lxiya.xendercart.core.utils.StringUtils;
 import com.lxiya.xendercart.security.model.views.AutherizedUser;
 import com.lxiya.xendercart.security.model.views.TokenData;
@@ -59,18 +60,20 @@ public class JwtTokenValidation extends OncePerRequestFilter {
             return;
         }
         TokenData tokenData = JwtUtils.decriptToken(token);
-        AutherizedUser user = tokenService.findAutherizedUser(tokenData);
-        if (null != user) {
-            List<GrantedAuthority> authorities = user.getRoles().stream()
-                    .map(CustomAuthority::new)
-                    .collect(Collectors.toList());
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                    user, authorities, authorities);
-            usernamePasswordAuthenticationToken
-                    .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            filterChain.doFilter(request, response);
-            return;
+        if (null != tokenData && TokenConstance.access.equals(tokenData.getTokenType())) {
+            AutherizedUser user = tokenService.findAutherizedUser(tokenData);
+            if (null != user) {
+                List<GrantedAuthority> authorities = user.getRoles().stream()
+                        .map(CustomAuthority::new)
+                        .collect(Collectors.toList());
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                        user, authorities, authorities);
+                usernamePasswordAuthenticationToken
+                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                filterChain.doFilter(request, response);
+                return;
+            }
         }
         SecurityUtils.unAuthorizedResponse(response);
     }

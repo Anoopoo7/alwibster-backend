@@ -21,4 +21,7 @@ public class TokenData {
     private String userId;
 
     private boolean annonymus;
+
+    private String tokenType;
+
 }
