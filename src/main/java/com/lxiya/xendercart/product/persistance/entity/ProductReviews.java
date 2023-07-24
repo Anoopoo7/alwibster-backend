@@ -7,9 +7,7 @@
 */
 package com.lxiya.xendercart.product.persistance.entity;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -21,33 +19,17 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Document(collection = "xen_products")
-public class Product extends BaseEntity {
+@Document(collection = "xen_product_reviews")
+public class ProductReviews extends BaseEntity {
 
-    private String name;
+    private String customerId;
 
-    private String defaultSkuId;
+    private String comment;
 
-    private String seller;
+    private List<ProductMedias> images;
 
-    private String brandId;
-
-    private String categoryId;
-
-    private List<ProductMedias> DefaultMedias;
-
-    private List<String> addOns;
-
-    private List<String> childProducts;
-
-    private List<String> relatedProducts;
-
-    private Map<String, String> badge;
+    private String productId;
 
     private Integer rating;
-
-    private Date saleStartDate;
-
-    private Date saleEndDate;
 
 }
