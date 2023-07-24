@@ -5,27 +5,20 @@
 *
 *   Anoop ss
 */
-package com.lxiya.xendercart.product.persistance.entity;
+package com.lxiya.xendercart.product.model.view;
 
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.lxiya.xendercart.core.BaseEntity;
 import com.lxiya.xendercart.product.model.ProductMedias;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Document(collection = "xen_products")
-public class Product extends BaseEntity {
+public class CreateProductView {
+
+    private String id;
 
     private String name;
-
-    private String defaultSkuId;
 
     private String brandId;
 
@@ -39,12 +32,7 @@ public class Product extends BaseEntity {
 
     private List<String> relatedProducts;
 
-    private Map<String, String> badge;
-
-    private Integer rating;
-
     private String saleStartDate;
 
     private String saleEndDate;
-
 }

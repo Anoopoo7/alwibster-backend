@@ -5,27 +5,25 @@
 *
 *   Anoop ss
 */
-package com.lxiya.xendercart.product.persistance.entity;
+package com.lxiya.xendercart.product.model.request;
 
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
-import com.lxiya.xendercart.core.BaseEntity;
+import com.lxiya.xendercart.core.errors.ProductErrors;
+import com.lxiya.xendercart.core.patterns.Patters;
 import com.lxiya.xendercart.product.model.ProductMedias;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Document(collection = "xen_products")
-public class Product extends BaseEntity {
+public class CreateProductRequest {
 
+    @NotBlank(message = ProductErrors.NAME_NULL)
+    @Pattern(regexp = Patters.STRING_LIMIT_100, message = ProductErrors.NAME_LENGTH_LIMIT_EXCEEDS)
     private String name;
-
-    private String defaultSkuId;
 
     private String brandId;
 
@@ -39,12 +37,10 @@ public class Product extends BaseEntity {
 
     private List<String> relatedProducts;
 
-    private Map<String, String> badge;
-
-    private Integer rating;
-
+    @Pattern(regexp = Patters.DATE_REQEX, message = ProductErrors.DATE_INVALID)
     private String saleStartDate;
 
+    @Pattern(regexp = Patters.DATE_REQEX, message = ProductErrors.DATE_INVALID)
     private String saleEndDate;
 
 }

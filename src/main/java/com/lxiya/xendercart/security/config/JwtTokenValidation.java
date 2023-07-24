@@ -67,7 +67,7 @@ public class JwtTokenValidation extends OncePerRequestFilter {
                         .map(CustomAuthority::new)
                         .collect(Collectors.toList());
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                        user, authorities, authorities);
+                        user.getUser(), authorities, authorities);
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);

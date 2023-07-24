@@ -40,5 +40,7 @@ public class Sku extends BaseEntity {
 
     private List<ProductMedias> medias;
 
+    private boolean customImages;
+
     private boolean hotStock;
 }
