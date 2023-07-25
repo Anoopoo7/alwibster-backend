@@ -5,22 +5,18 @@
 *
 *   Anoop ss
 */
-package com.lxiya.xendercart.product.persistance.entity;
+package com.lxiya.xendercart.product.model.view;
 
 import java.util.List;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.lxiya.xendercart.core.BaseEntity;
 import com.lxiya.xendercart.product.model.ProductMedias;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Document(collection = "xen_skus")
-public class Sku extends BaseEntity {
+public class CreateSkuView {
+
+    private String id;
 
     private String productId;
 

@@ -9,9 +9,14 @@ package com.lxiya.xendercart.product.service;
 
 import com.lxiya.xendercart.product.model.request.CreateProductRequest;
 import com.lxiya.xendercart.product.model.view.CreateProductView;
+import com.lxiya.xendercart.product.persistance.entity.Product;
 
 public interface ProductService {
 
     CreateProductView createProduct(final CreateProductRequest createProductRequest);
+
+    Product getProductById(String productId);
+
+    Product saveProduct(Product product);
 
 }

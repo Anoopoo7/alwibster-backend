@@ -7,14 +7,14 @@
 */
 package com.lxiya.xendercart.product.persistance.repository;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.lxiya.xendercart.product.persistance.entity.Product;
+import com.lxiya.xendercart.product.persistance.entity.Sku;
 
-public interface ProductRepository extends MongoRepository<Product, String> {
+public interface SkuRepository extends MongoRepository<Sku, String> {
 
-    Optional<Product> findByIdAndEnabled(String productId, boolean enabled);
+    List<Sku> findByProductIdAndEnabled(String productId, boolean enabled);
 
 }

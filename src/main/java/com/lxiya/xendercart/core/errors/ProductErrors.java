@@ -18,4 +18,6 @@ public class ProductErrors {
 
     public static final String NAME_LENGTH_LIMIT_EXCEEDS = "Name must be between 1 and 100 characters.";
 
+    public static final String PRODUCT_ID_NULL = "ProductId is mandatory.";
+
 }
