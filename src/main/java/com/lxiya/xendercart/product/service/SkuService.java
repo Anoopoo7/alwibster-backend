@@ -7,13 +7,18 @@
 */
 package com.lxiya.xendercart.product.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import com.lxiya.xendercart.product.model.request.CreateSkuRequest;
 import com.lxiya.xendercart.product.model.view.CreateSkuView;
+import com.lxiya.xendercart.product.model.view.SkuView;
 
 public interface SkuService {
 
     CreateSkuView createSku(@Valid CreateSkuRequest createSkuRequest);
+
+    List<SkuView> getSkusByProductId(String id);
 
 }

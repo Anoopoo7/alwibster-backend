@@ -7,6 +7,9 @@
 */
 package com.lxiya.xendercart.product.helper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Component;
 import com.lxiya.xendercart.core.UserContext;
 import com.lxiya.xendercart.product.model.request.CreateSkuRequest;
 import com.lxiya.xendercart.product.model.view.CreateSkuView;
+import com.lxiya.xendercart.product.model.view.SkuView;
 import com.lxiya.xendercart.product.persistance.entity.Sku;
 
 @Component
@@ -35,6 +39,14 @@ public class SkuHelper {
         CreateSkuView createSkuView = new CreateSkuView();
         BeanUtils.copyProperties(sku, createSkuView);
         return createSkuView;
+    }
+
+    public static List<SkuView> transformSkusToView(List<Sku> skus) {
+        return skus.stream().map(sku -> {
+            SkuView skuView = new SkuView();
+            BeanUtils.copyProperties(sku, skus);
+            return skuView;
+        }).collect(Collectors.toList());
     }
 
 }

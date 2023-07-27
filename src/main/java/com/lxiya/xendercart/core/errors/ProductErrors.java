@@ -20,4 +20,6 @@ public class ProductErrors {
 
     public static final String PRODUCT_ID_NULL = "ProductId is mandatory.";
 
+    public static final String PRODUCT_NOT_FOUND = "Product not found";
+
 }

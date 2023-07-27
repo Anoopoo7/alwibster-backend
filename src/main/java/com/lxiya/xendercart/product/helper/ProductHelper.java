@@ -7,11 +7,15 @@
 */
 package com.lxiya.xendercart.product.helper;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 
 import com.lxiya.xendercart.core.UserContext;
 import com.lxiya.xendercart.product.model.request.CreateProductRequest;
 import com.lxiya.xendercart.product.model.view.CreateProductView;
+import com.lxiya.xendercart.product.model.view.ProductView;
+import com.lxiya.xendercart.product.model.view.SkuView;
 import com.lxiya.xendercart.product.persistance.entity.Product;
 
 public class ProductHelper {
@@ -26,10 +30,17 @@ public class ProductHelper {
         return product;
     }
 
-    public static CreateProductView transformProductToView(Product product) {
+    public static CreateProductView transformProductToCreateView(Product product) {
         CreateProductView CreateProductView = new CreateProductView();
         BeanUtils.copyProperties(product, CreateProductView);
         return CreateProductView;
+    }
+
+    public static ProductView transformProductToView(Product product, List<SkuView> skus) {
+        ProductView productView = new ProductView();
+        BeanUtils.copyProperties(product, productView);
+        productView.setSkus(skus);
+        return productView;
     }
 
 }

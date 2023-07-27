@@ -7,6 +7,8 @@
 */
 package com.lxiya.xendercart.product.service.impl;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import com.lxiya.xendercart.core.utils.StringUtils;
 import com.lxiya.xendercart.product.helper.SkuHelper;
 import com.lxiya.xendercart.product.model.request.CreateSkuRequest;
 import com.lxiya.xendercart.product.model.view.CreateSkuView;
+import com.lxiya.xendercart.product.model.view.SkuView;
 import com.lxiya.xendercart.product.persistance.dao.SkuDao;
 import com.lxiya.xendercart.product.persistance.entity.Product;
 import com.lxiya.xendercart.product.persistance.entity.Sku;
@@ -50,6 +53,20 @@ public class SkuServiceImpl implements SkuService {
             productService.saveProduct(product);
         }
         return SkuHelper.transformSkewToCreateSkuView(sku);
+    }
+
+    @Override
+    public List<SkuView> getSkusByProductId(String id) {
+        log.info("A8515460-E97B-42B5-B60E-E28ED9EBB2D7 fetching product by id {}", id);
+        if (StringUtils.isBlank(id)) {
+            throw new RuntimeException(SkuErrors.PRODUCT_ID_NULL);
+        }
+        List<Sku> skus = skuDao.getSkuRepository().findAllSkuByProductIdAndActiveAndEnabled(id, true, true);
+        if (skus.isEmpty()) {
+            log.warn("7E2EFDCE-1E7B-41D4-92F3-3B9355334EED no skus found for the product id {}", id);
+            return null;
+        }
+        return SkuHelper.transformSkusToView(skus);
     }
 
 }
