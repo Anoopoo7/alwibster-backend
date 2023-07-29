@@ -48,8 +48,7 @@ public class ProductServiceImpl implements ProductService {
         return ProductHelper.transformProductToCreateView(this.saveProduct(product));
     }
 
-    @Override
-    public Product getProductById(String productId) {
+    private Product getProductById(String productId) {
         if (null == productId) {
             throw new RuntimeException(ProductErrors.PRODUCT_ID_NULL);
         }

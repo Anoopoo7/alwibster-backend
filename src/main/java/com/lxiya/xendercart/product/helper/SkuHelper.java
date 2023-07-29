@@ -44,7 +44,7 @@ public class SkuHelper {
     public static List<SkuView> transformSkusToView(List<Sku> skus) {
         return skus.stream().map(sku -> {
             SkuView skuView = new SkuView();
-            BeanUtils.copyProperties(sku, skus);
+            BeanUtils.copyProperties(sku, skuView);
             return skuView;
         }).collect(Collectors.toList());
     }

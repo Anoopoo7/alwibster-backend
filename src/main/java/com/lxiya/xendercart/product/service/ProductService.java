@@ -16,8 +16,6 @@ public interface ProductService {
 
     CreateProductView createProduct(final CreateProductRequest createProductRequest);
 
-    Product getProductById(String productId);
-
     Product saveProduct(Product product);
 
     ProductView getProduct(String id);
