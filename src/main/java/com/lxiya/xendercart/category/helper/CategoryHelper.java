@@ -7,7 +7,9 @@
 */
 package com.lxiya.xendercart.category.helper;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -39,6 +41,16 @@ public class CategoryHelper {
         BeanUtils.copyProperties(save, categoryView);
         categoryView.setProducts(products);
         return categoryView;
+    }
+
+    public static List<CategoryView> transformCategoriesToViews(List<Category> data) {
+        return !data.isEmpty()
+                ? data.stream().map(category -> {
+                    CategoryView categoryView = new CategoryView();
+                    BeanUtils.copyProperties(category, categoryView);
+                    return categoryView;
+                }).collect(Collectors.toList())
+                : new ArrayList<>();
     }
 
 }

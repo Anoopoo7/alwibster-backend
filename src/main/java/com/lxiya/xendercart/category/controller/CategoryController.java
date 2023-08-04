@@ -10,6 +10,7 @@ package com.lxiya.xendercart.category.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +19,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lxiya.xendercart.category.model.request.CategoryView;
 import com.lxiya.xendercart.category.model.request.CreateCategoryRequest;
 import com.lxiya.xendercart.category.service.CategoryService;
+import com.lxiya.xendercart.core.PageView;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -54,6 +57,14 @@ public class CategoryController {
     public CategoryView toggleCategory(@PathVariable final String id) {
         log.info("DE59FDEA-02F5-4084-9D71-3BA022EE6035 editing category status with category id : {}", id);
         return categoryService.toggleCategory(id);
+    }
+
+    @GetMapping("/search")
+    @PreAuthorize("hasAuthority('XEN_VWE_CAT')")
+    public PageView<CategoryView> getCategories(@RequestParam(required = false) String searchTerm,
+            final Pageable pageable) {
+        log.info("ADB342A2-47A2-4918-BB19-1367C199539F fetching chategories with searchTerm : {}", searchTerm);
+        return categoryService.getCategories(searchTerm, pageable);
     }
 
 }

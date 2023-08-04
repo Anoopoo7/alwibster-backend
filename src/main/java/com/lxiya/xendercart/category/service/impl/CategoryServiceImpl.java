@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.lxiya.xendercart.category.helper.CategoryHelper;
@@ -20,6 +21,7 @@ import com.lxiya.xendercart.category.model.request.CreateCategoryRequest;
 import com.lxiya.xendercart.category.persistance.dao.CategoryDao;
 import com.lxiya.xendercart.category.persistance.entity.Category;
 import com.lxiya.xendercart.category.service.CategoryService;
+import com.lxiya.xendercart.core.PageView;
 import com.lxiya.xendercart.core.UserContext;
 import com.lxiya.xendercart.core.errors.CategoryErrors;
 import com.lxiya.xendercart.core.utils.StringUtils;
@@ -62,7 +64,7 @@ public class CategoryServiceImpl implements CategoryService {
         if (StringUtils.isBlank(id)) {
             throw new RuntimeException(CategoryErrors.CATEGORY_ID_NULL);
         }
-        Category category = categoryDao.getCategoryRepository().findByIdAndActiveAndEnabled(id, true, true);
+        Category category = categoryDao.getCategoryRepository().findByIdAndEnabled(id, true);
         if (null == category) {
             throw new RuntimeException(CategoryErrors.NO_CATEGORIES_FOUNDS);
         }
@@ -83,6 +85,14 @@ public class CategoryServiceImpl implements CategoryService {
         category.setUpdatedDate(new Date());
         category.setModifiedBy(UserContext.user().getEmail());
         return this.populateCategoryView(categoryDao.getCategoryRepository().save(category), category.getProductIds());
+    }
+
+    @Override
+    public PageView<CategoryView> getCategories(String searchTerm, Pageable pageable) {
+        log.info("7B867260-521B-4CBE-B340-3323FE09EE25 fetching chategories with searchTerm : {}", searchTerm);
+        PageView<Category> categoryPage = categoryDao.getCategoryRepository().searchCategories(searchTerm, pageable);
+        List<CategoryView> CategoryViews = CategoryHelper.transformCategoriesToViews(categoryPage.getData());
+        return new PageView<>(CategoryViews, categoryPage);
     }
 
 }

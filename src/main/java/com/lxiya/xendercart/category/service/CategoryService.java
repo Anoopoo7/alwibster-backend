@@ -7,8 +7,11 @@
 */
 package com.lxiya.xendercart.category.service;
 
+import org.springframework.data.domain.Pageable;
+
 import com.lxiya.xendercart.category.model.request.CategoryView;
 import com.lxiya.xendercart.category.model.request.CreateCategoryRequest;
+import com.lxiya.xendercart.core.PageView;
 
 public interface CategoryService {
 
@@ -17,4 +20,6 @@ public interface CategoryService {
     CategoryView getCategory(String id);
 
     CategoryView toggleCategory(String id);
+
+    PageView<CategoryView> getCategories(String searchTerm, Pageable pageable);
 }
