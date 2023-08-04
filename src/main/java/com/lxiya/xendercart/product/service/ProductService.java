@@ -7,6 +7,10 @@
 */
 package com.lxiya.xendercart.product.service;
 
+
+import org.springframework.data.domain.Pageable;
+
+import com.lxiya.xendercart.core.PageView;
 import com.lxiya.xendercart.product.model.request.CreateProductRequest;
 import com.lxiya.xendercart.product.model.view.CreateProductView;
 import com.lxiya.xendercart.product.model.view.ProductView;
@@ -19,5 +23,7 @@ public interface ProductService {
     Product saveProduct(Product product);
 
     ProductView getProduct(String id);
+
+    PageView<ProductView> getProducts(String searchTerm, Pageable pageable);
 
 }

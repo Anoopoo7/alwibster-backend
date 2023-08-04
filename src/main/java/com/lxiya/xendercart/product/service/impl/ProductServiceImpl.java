@@ -11,8 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.lxiya.xendercart.core.PageView;
 import com.lxiya.xendercart.core.errors.ProductErrors;
 import com.lxiya.xendercart.product.helper.ProductHelper;
 import com.lxiya.xendercart.product.model.request.CreateProductRequest;
@@ -70,6 +72,14 @@ public class ProductServiceImpl implements ProductService {
         log.info("4FF3C9D8-72E1-469D-B92C-34199997A548 fetched product {} and skus {} for the product id {}", product,
                 skus, id);
         return ProductHelper.transformProductToView(product, skus);
+    }
+
+    @Override
+    public PageView<ProductView> getProducts(String searchTerm, Pageable pageable) {
+        log.info("13299146-D7FB-4C3B-B6D4-CC0673A94E84 fetching products with searchTerm : {}", searchTerm);
+        PageView<Product> productsPage = productDao.getProductRepository().searchProducts(searchTerm, pageable);
+        List<ProductView> productViews = ProductHelper.transformProductsToViews(productsPage.getData());
+        return new PageView<ProductView>(productViews, productsPage);
     }
 
 }

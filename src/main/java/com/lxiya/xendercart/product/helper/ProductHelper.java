@@ -7,7 +7,9 @@
 */
 package com.lxiya.xendercart.product.helper;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 
@@ -41,6 +43,14 @@ public class ProductHelper {
         BeanUtils.copyProperties(product, productView);
         productView.setSkus(skus);
         return productView;
+    }
+
+    public static List<ProductView> transformProductsToViews(List<Product> products) {
+        return !products.isEmpty() ? products.stream().map(product -> {
+            ProductView productView = new ProductView();
+            BeanUtils.copyProperties(product, productView);
+            return productView;
+        }).collect(Collectors.toList()) : new ArrayList<>();
     }
 
 }

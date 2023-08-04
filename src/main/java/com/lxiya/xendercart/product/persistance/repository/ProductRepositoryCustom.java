@@ -7,14 +7,12 @@
 */
 package com.lxiya.xendercart.product.persistance.repository;
 
-import java.util.Optional;
+import org.springframework.data.domain.Pageable;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-
+import com.lxiya.xendercart.core.PageView;
 import com.lxiya.xendercart.product.persistance.entity.Product;
 
-public interface ProductRepository extends MongoRepository<Product, String>, ProductRepositoryCustom {
+public interface ProductRepositoryCustom {
 
-    Optional<Product> findByIdAndEnabled(String productId, boolean enabled);
-
+    PageView<Product> searchProducts(String searchTerm, Pageable pageable);
 }

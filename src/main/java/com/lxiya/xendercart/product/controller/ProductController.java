@@ -10,6 +10,7 @@ package com.lxiya.xendercart.product.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lxiya.xendercart.core.PageView;
 import com.lxiya.xendercart.product.model.request.CreateProductRequest;
 import com.lxiya.xendercart.product.model.view.CreateProductView;
 import com.lxiya.xendercart.product.model.view.ProductView;
@@ -48,4 +51,13 @@ public class ProductController {
         log.info("238CDB02-C265-41C8-AB3C-6F9FD60C6A3C fetching product with id : {}", id);
         return productService.getProduct(id);
     }
+
+    @GetMapping("/search")
+    @PreAuthorize("hasAuthority('XEN_VWE_PRD')")
+    public PageView<ProductView> getProducts(@RequestParam(required = false) String searchTerm,
+            final Pageable pageable) {
+        log.info("77B1C551-1077-4EEF-9758-E0D5BD68F064 fetching products with searchTerm : {}", searchTerm);
+        return productService.getProducts(searchTerm, pageable);
+    }
+
 }
