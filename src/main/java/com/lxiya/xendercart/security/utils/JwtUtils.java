@@ -45,8 +45,8 @@ public class JwtUtils {
 
     public static boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
-            return true;
+            Claims decriptedData = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+            return !decriptedData.getExpiration().before(new Date(System.currentTimeMillis()));
         } catch (Exception e) {
             return false;
         }
