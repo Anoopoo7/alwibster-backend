@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,8 +44,15 @@ public class CategoryController {
 
     @GetMapping("/id/{id}")
     @PreAuthorize("hasAuthority('XEN_VWE_CAT')")
-    public CategoryView getCategory(@PathVariable String id) {
+    public CategoryView getCategory(@PathVariable final String id) {
         log.info("2A1E6FCC-46FD-4222-86B6-93CD1FDBBD60 fetching category with id : {}", id);
         return categoryService.getCategory(id);
     }
+
+    @PatchMapping("/id/{id}")
+    public CategoryView toggleCategory(@PathVariable final String id) {
+        log.info("DE59FDEA-02F5-4084-9D71-3BA022EE6035 editing category status with category id : {}", id);
+        return categoryService.toggleCategory(id);
+    }
+
 }

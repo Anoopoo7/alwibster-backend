@@ -7,6 +7,7 @@
 */
 package com.lxiya.xendercart.category.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,7 @@ import com.lxiya.xendercart.category.model.request.CreateCategoryRequest;
 import com.lxiya.xendercart.category.persistance.dao.CategoryDao;
 import com.lxiya.xendercart.category.persistance.entity.Category;
 import com.lxiya.xendercart.category.service.CategoryService;
+import com.lxiya.xendercart.core.UserContext;
 import com.lxiya.xendercart.core.errors.CategoryErrors;
 import com.lxiya.xendercart.core.utils.StringUtils;
 import com.lxiya.xendercart.product.model.view.ProductView;
@@ -65,6 +67,22 @@ public class CategoryServiceImpl implements CategoryService {
             throw new RuntimeException(CategoryErrors.NO_CATEGORIES_FOUNDS);
         }
         return this.populateCategoryView(category, category.getProductIds());
+    }
+
+    @Override
+    public CategoryView toggleCategory(String id) {
+        log.info("C220212A-8A1E-4FEA-B77D-483B5A5BCE7C editing category status with category id : {}", id);
+        if (StringUtils.isBlank(id)) {
+            throw new RuntimeException(CategoryErrors.CATEGORY_ID_NULL);
+        }
+        Category category = categoryDao.getCategoryRepository().findByIdAndEnabled(id, true);
+        if (null == category) {
+            throw new RuntimeException(CategoryErrors.NO_CATEGORIES_FOUNDS);
+        }
+        category.setActive(!category.isActive());
+        category.setUpdatedDate(new Date());
+        category.setModifiedBy(UserContext.user().getEmail());
+        return this.populateCategoryView(categoryDao.getCategoryRepository().save(category), category.getProductIds());
     }
 
 }

@@ -16,4 +16,5 @@ public interface CategoryService {
 
     CategoryView getCategory(String id);
 
+    CategoryView toggleCategory(String id);
 }

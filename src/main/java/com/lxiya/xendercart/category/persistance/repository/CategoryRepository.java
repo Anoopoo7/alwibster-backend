@@ -8,4 +8,6 @@ public interface CategoryRepository extends MongoRepository<Category, String> {
 
     Category findByIdAndActiveAndEnabled(String id, boolean active, boolean enabled);
 
+    Category findByIdAndEnabled(String id, boolean enabled);
+
 }

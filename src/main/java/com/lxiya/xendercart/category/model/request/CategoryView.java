@@ -23,6 +23,8 @@ public class CategoryView {
 
     private String description;
 
+    private boolean active;
+
     private List<ProductView> products;
 
     private List<CategoryMedias> medias;
