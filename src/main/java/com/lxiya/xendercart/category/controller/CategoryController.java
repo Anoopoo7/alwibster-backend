@@ -38,6 +38,12 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    /**
+     * Create category
+     * 
+     * @param createCategoryRequest
+     * @return CategoryView
+     */
     @PostMapping
     @PreAuthorize("hasAuthority('XEN_CRT_CAT')")
     public CategoryView createCategory(@Valid @RequestBody final CreateCategoryRequest createCategoryRequest) {
@@ -45,6 +51,12 @@ public class CategoryController {
         return categoryService.createCategory(createCategoryRequest);
     }
 
+    /**
+     * Find category
+     * 
+     * @param id
+     * @return CategoryView
+     */
     @GetMapping("/id/{id}")
     @PreAuthorize("hasAuthority('XEN_VWE_CAT')")
     public CategoryView getCategory(@PathVariable final String id) {
@@ -52,6 +64,12 @@ public class CategoryController {
         return categoryService.getCategory(id);
     }
 
+    /**
+     * Toggle category status
+     * 
+     * @param id
+     * @return CategoryView
+     */
     @PatchMapping("/id/{id}")
     @PreAuthorize("hasAuthority('XEN_EDT_CAT')")
     public CategoryView toggleCategoryStatus(@PathVariable final String id) {
@@ -59,9 +77,16 @@ public class CategoryController {
         return categoryService.toggleCategoryStatus(id);
     }
 
+    /**
+     * List/search categories
+     * 
+     * @param searchTerm
+     * @param pageable
+     * @return PageView<CategoryView>
+     */
     @GetMapping("/search")
     @PreAuthorize("hasAuthority('XEN_VWE_CAT')")
-    public PageView<CategoryView> getCategories(@RequestParam(required = false) String searchTerm,
+    public PageView<CategoryView> getCategories(@RequestParam(required = false) final String searchTerm,
             final Pageable pageable) {
         log.info("ADB342A2-47A2-4918-BB19-1367C199539F fetching chategories with searchTerm : {}", searchTerm);
         return categoryService.getCategories(searchTerm, pageable);

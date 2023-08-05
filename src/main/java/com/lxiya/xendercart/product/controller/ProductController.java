@@ -41,6 +41,12 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    /**
+     * Create product
+     * 
+     * @param createProductRequest
+     * @return CreateProductView
+     */
     @PostMapping
     @PreAuthorize("hasAuthority('XEN_CRT_PRD')")
     public CreateProductView createProduct(@Valid @RequestBody final CreateProductRequest createProductRequest) {
@@ -48,6 +54,12 @@ public class ProductController {
         return productService.createProduct(createProductRequest);
     }
 
+    /**
+     * Find product
+     * 
+     * @param id
+     * @return ProductView
+     */
     @GetMapping("/id/{id}")
     @PreAuthorize("hasAuthority('XEN_VWE_PRD')")
     public ProductView getProduct(@PathVariable final String id) {
@@ -55,6 +67,12 @@ public class ProductController {
         return productService.getProduct(id);
     }
 
+    /**
+     * Toggle product status
+     * 
+     * @param id
+     * @return ProductView
+     */
     @PatchMapping("/id/{id}")
     @PreAuthorize("hasAuthority('XEN_EDT_PRD')")
     public ProductView toggleProductStatus(@PathVariable final String id) {
@@ -62,17 +80,32 @@ public class ProductController {
         return productService.toggleProductStatus(id);
     }
 
+    /**
+     * Edit product
+     * 
+     * @param id
+     * @param editProductRequest
+     * @return ProductView
+     */
     @PutMapping("/edit/id/{id}")
     @PreAuthorize("hasAuthority('XEN_EDT_PRD')")
-    public ProductView editProduct(@PathVariable String id, @RequestBody final EditProductRequest editProductRequest) {
+    public ProductView editProduct(@PathVariable final String id,
+            @RequestBody final EditProductRequest editProductRequest) {
         log.info("238CDB02-C265-41C8-AB3C-6F9FD60C6A3C editing product of id : {} with details : {}", id,
                 editProductRequest);
         return productService.editProduct(id, editProductRequest);
     }
 
+    /**
+     * List/search product
+     * 
+     * @param searchTerm
+     * @param pageable
+     * @return PageView<ProductView>
+     */
     @GetMapping("/search")
     @PreAuthorize("hasAuthority('XEN_VWE_PRD')")
-    public PageView<ProductView> getProducts(@RequestParam(required = false) String searchTerm,
+    public PageView<ProductView> getProducts(@RequestParam(required = false) final String searchTerm,
             final Pageable pageable) {
         log.info("77B1C551-1077-4EEF-9758-E0D5BD68F064 fetching products with searchTerm : {}", searchTerm);
         return productService.getProducts(searchTerm, pageable);

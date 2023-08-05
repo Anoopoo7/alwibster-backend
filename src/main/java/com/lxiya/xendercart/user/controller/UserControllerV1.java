@@ -35,13 +35,26 @@ public class UserControllerV1 {
     @Autowired
     private UserService userService;
 
+    /**
+     * Create user
+     * 
+     * @param user
+     * @param request
+     * @return UserView
+     */
     @PostMapping
     @PreAuthorize("hasAuthority('XEN_CRT_USR')")
-    public UserView createUser(@Valid @RequestBody final UserRequest user, HttpServletRequest request) {
+    public UserView createUser(@Valid @RequestBody final UserRequest user, final HttpServletRequest request) {
         log.info("023516AD-9ED3-43D5-85E0-8B1A8BBA4F8A creating user with details : ", user);
         return userService.createUser(user, request);
     }
 
+    /**
+     * Find user
+     * 
+     * @param id
+     * @return UserView
+     */
     @GetMapping("/id/{id}")
     @PreAuthorize("hasAuthority('XEN_VWE_USR')")
     public UserView getUser(@PathVariable final String id) {
