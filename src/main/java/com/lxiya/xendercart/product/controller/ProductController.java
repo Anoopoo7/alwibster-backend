@@ -90,7 +90,7 @@ public class ProductController {
     @PutMapping("/edit/id/{id}")
     @PreAuthorize("hasAuthority('XEN_EDT_PRD')")
     public ProductView editProduct(@PathVariable final String id,
-            @RequestBody final EditProductRequest editProductRequest) {
+            @Valid @RequestBody final EditProductRequest editProductRequest) {
         log.info("238CDB02-C265-41C8-AB3C-6F9FD60C6A3C editing product of id : {} with details : {}", id,
                 editProductRequest);
         return productService.editProduct(id, editProductRequest);

@@ -32,6 +32,12 @@ public class SkuController {
     @Autowired
     private SkuService skuService;
 
+    /**
+     * Create sku
+     * 
+     * @param createSkuRequest
+     * @return CreateSkuView
+     */
     @PostMapping
     @PreAuthorize("hasAuthority('XEN_CRT_SKU')")
     public CreateSkuView createSku(@Valid @RequestBody final CreateSkuRequest createSkuRequest) {
