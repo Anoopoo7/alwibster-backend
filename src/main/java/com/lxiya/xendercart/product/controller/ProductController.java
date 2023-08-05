@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lxiya.xendercart.core.PageView;
 import com.lxiya.xendercart.product.model.request.CreateProductRequest;
+import com.lxiya.xendercart.product.model.request.EditProductRequest;
 import com.lxiya.xendercart.product.model.view.CreateProductView;
 import com.lxiya.xendercart.product.model.view.ProductView;
 import com.lxiya.xendercart.product.service.ProductService;
@@ -58,6 +60,14 @@ public class ProductController {
     public ProductView toggleProductStatus(@PathVariable final String id) {
         log.info("238CDB02-C265-41C8-AB3C-6F9FD60C6A3C editing product status of id : {}", id);
         return productService.toggleProductStatus(id);
+    }
+
+    @PutMapping("/edit/id/{id}")
+    @PreAuthorize("hasAuthority('XEN_EDT_PRD')")
+    public ProductView editProduct(@PathVariable String id, @RequestBody final EditProductRequest editProductRequest) {
+        log.info("238CDB02-C265-41C8-AB3C-6F9FD60C6A3C editing product of id : {} with details : {}", id,
+                editProductRequest);
+        return productService.editProduct(id, editProductRequest);
     }
 
     @GetMapping("/search")

@@ -18,6 +18,7 @@ import com.lxiya.xendercart.core.PageView;
 import com.lxiya.xendercart.core.errors.ProductErrors;
 import com.lxiya.xendercart.product.helper.ProductHelper;
 import com.lxiya.xendercart.product.model.request.CreateProductRequest;
+import com.lxiya.xendercart.product.model.request.EditProductRequest;
 import com.lxiya.xendercart.product.model.view.CreateProductView;
 import com.lxiya.xendercart.product.model.view.ProductView;
 import com.lxiya.xendercart.product.model.view.SkuView;
@@ -39,6 +40,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product saveProduct(Product product) {
+        log.info("D045C5A8-B72D-47AF-840C-110595DB1560 saving product : {}", product);
         return productDao.getProductRepository().save(product);
     }
 
@@ -90,6 +92,18 @@ public class ProductServiceImpl implements ProductService {
             throw new RuntimeException(ProductErrors.PRODUCT_NOT_FOUND);
         }
         product.setActive(!product.isActive());
+        return ProductHelper.transformProductToView(this.saveProduct(product), null);
+    }
+
+    @Override
+    public ProductView editProduct(String id, EditProductRequest editProductRequest) {
+        log.info("50561FCB-702D-4607-AA03-BA398515FBFC editing product of id : {} with details : {}", id,
+                editProductRequest);
+        Product product = this.getProductById(id);
+        if (null == product) {
+            throw new RuntimeException(ProductErrors.PRODUCT_NOT_FOUND);
+        }
+        ProductHelper.populateProductFromEditRequest(product, editProductRequest);
         return ProductHelper.transformProductToView(this.saveProduct(product), null);
     }
 

@@ -14,7 +14,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.BeanUtils;
 
 import com.lxiya.xendercart.core.UserContext;
+import com.lxiya.xendercart.core.utils.StringUtils;
 import com.lxiya.xendercart.product.model.request.CreateProductRequest;
+import com.lxiya.xendercart.product.model.request.EditProductRequest;
 import com.lxiya.xendercart.product.model.view.CreateProductView;
 import com.lxiya.xendercart.product.model.view.ProductView;
 import com.lxiya.xendercart.product.model.view.SkuView;
@@ -51,6 +53,42 @@ public class ProductHelper {
             BeanUtils.copyProperties(product, productView);
             return productView;
         }).collect(Collectors.toList()) : new ArrayList<>();
+    }
+
+    public static void populateProductFromEditRequest(Product product, EditProductRequest editProductRequest) {
+        if (!StringUtils.isBlank(editProductRequest.getName())) {
+            product.setName(editProductRequest.getName());
+        }
+        if (!StringUtils.isBlank(editProductRequest.getDefaultSkuId())) {
+            product.setDefaultSkuId(editProductRequest.getDefaultSkuId());
+        }
+        if (!StringUtils.isBlank(editProductRequest.getBrandId())) {
+            product.setBrandId(editProductRequest.getBrandId());
+        }
+        if (!StringUtils.isBlank(editProductRequest.getCategoryId())) {
+            product.setCategoryId(editProductRequest.getCategoryId());
+        }
+        if (!StringUtils.isBlank(editProductRequest.getSaleStartDate())) {
+            product.setSaleStartDate(editProductRequest.getSaleStartDate());
+        }
+        if (!StringUtils.isBlank(editProductRequest.getSaleStartDate())) {
+            product.setSaleStartDate(editProductRequest.getSaleStartDate());
+        }
+        if (null != editProductRequest.getRating()) {
+            product.setRating(editProductRequest.getRating());
+        }
+        if (null != editProductRequest.getDefaultMedias()) {
+            product.setDefaultMedias(editProductRequest.getDefaultMedias());
+        }
+        if (null != editProductRequest.getAddOns()) {
+            product.setAddOns(editProductRequest.getAddOns());
+        }
+        if (null != editProductRequest.getChildProducts()) {
+            product.setChildProducts(editProductRequest.getChildProducts());
+        }
+        if (null != editProductRequest.getRelatedProducts()) {
+            product.setRelatedProducts(editProductRequest.getRelatedProducts());
+        }
     }
 
 }

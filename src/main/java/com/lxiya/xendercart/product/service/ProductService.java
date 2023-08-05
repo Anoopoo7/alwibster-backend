@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.lxiya.xendercart.core.PageView;
 import com.lxiya.xendercart.product.model.request.CreateProductRequest;
+import com.lxiya.xendercart.product.model.request.EditProductRequest;
 import com.lxiya.xendercart.product.model.view.CreateProductView;
 import com.lxiya.xendercart.product.model.view.ProductView;
 import com.lxiya.xendercart.product.persistance.entity.Product;
@@ -27,5 +28,7 @@ public interface ProductService {
     PageView<ProductView> getProducts(String searchTerm, Pageable pageable);
 
     ProductView toggleProductStatus(String id);
+
+    ProductView editProduct(String id, EditProductRequest editProductRequest);
 
 }
