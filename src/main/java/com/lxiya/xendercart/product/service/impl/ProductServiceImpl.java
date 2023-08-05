@@ -82,4 +82,15 @@ public class ProductServiceImpl implements ProductService {
         return new PageView<ProductView>(productViews, productsPage);
     }
 
+    @Override
+    public ProductView getProductStatus(String id) {
+        log.info("261FF8C4-A91E-423F-844B-8379C1AA3A26 editing product status if id : {}", id);
+        Product product = this.getProductById(id);
+        if (null == product) {
+            throw new RuntimeException(ProductErrors.PRODUCT_NOT_FOUND);
+        }
+        product.setActive(!product.isActive());
+        return ProductHelper.transformProductToView(this.saveProduct(product), null);
+    }
+
 }

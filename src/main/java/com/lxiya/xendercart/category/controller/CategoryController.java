@@ -54,9 +54,9 @@ public class CategoryController {
 
     @PatchMapping("/id/{id}")
     @PreAuthorize("hasAuthority('XEN_EDT_CAT')")
-    public CategoryView toggleCategory(@PathVariable final String id) {
+    public CategoryView toggleCategoryStatus(@PathVariable final String id) {
         log.info("DE59FDEA-02F5-4084-9D71-3BA022EE6035 editing category status with category id : {}", id);
-        return categoryService.toggleCategory(id);
+        return categoryService.toggleCategoryStatus(id);
     }
 
     @GetMapping("/search")

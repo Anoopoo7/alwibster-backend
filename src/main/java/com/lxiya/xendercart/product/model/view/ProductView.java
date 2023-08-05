@@ -21,6 +21,8 @@ public class ProductView {
 
     private String name;
 
+    private boolean active;
+
     private String defaultSkuId;
 
     private List<SkuView> skus;

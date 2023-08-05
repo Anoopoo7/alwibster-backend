@@ -26,4 +26,6 @@ public interface ProductService {
 
     PageView<ProductView> getProducts(String searchTerm, Pageable pageable);
 
+    ProductView getProductStatus(String id);
+
 }

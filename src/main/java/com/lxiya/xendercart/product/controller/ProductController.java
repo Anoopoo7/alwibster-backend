@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,6 +51,13 @@ public class ProductController {
     public ProductView getProduct(@PathVariable final String id) {
         log.info("238CDB02-C265-41C8-AB3C-6F9FD60C6A3C fetching product with id : {}", id);
         return productService.getProduct(id);
+    }
+
+    @PatchMapping("/id/{id}")
+    @PreAuthorize("hasAuthority('XEN_EDT_PRD')")
+    public ProductView getProductStatus(@PathVariable final String id) {
+        log.info("238CDB02-C265-41C8-AB3C-6F9FD60C6A3C editing product status of id : {}", id);
+        return productService.getProductStatus(id);
     }
 
     @GetMapping("/search")

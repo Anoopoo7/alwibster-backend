@@ -72,7 +72,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryView toggleCategory(String id) {
+    public CategoryView toggleCategoryStatus(String id) {
         log.info("C220212A-8A1E-4FEA-B77D-483B5A5BCE7C editing category status with category id : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new RuntimeException(CategoryErrors.CATEGORY_ID_NULL);

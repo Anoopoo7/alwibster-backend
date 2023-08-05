@@ -19,7 +19,7 @@ public interface CategoryService {
 
     CategoryView getCategory(String id);
 
-    CategoryView toggleCategory(String id);
+    CategoryView toggleCategoryStatus(String id);
 
     PageView<CategoryView> getCategories(String searchTerm, Pageable pageable);
 }
