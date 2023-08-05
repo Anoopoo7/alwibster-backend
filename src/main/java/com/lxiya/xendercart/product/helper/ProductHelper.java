@@ -8,6 +8,7 @@
 package com.lxiya.xendercart.product.helper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +29,6 @@ public class ProductHelper {
         Product product = new Product();
         BeanUtils.copyProperties(createProductRequest, product);
         product.setCreatedBy(UserContext.user().getEmail());
-        product.setModifiedBy(UserContext.user().getEmail());
         product.setActive(true);
         product.setEnabled(true);
         return product;
@@ -89,6 +89,8 @@ public class ProductHelper {
         if (null != editProductRequest.getRelatedProducts()) {
             product.setRelatedProducts(editProductRequest.getRelatedProducts());
         }
+        product.setUpdatedDate(new Date());
+        product.setModifiedBy(UserContext.user().getEmail());
     }
 
 }

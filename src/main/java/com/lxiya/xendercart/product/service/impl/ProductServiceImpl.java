@@ -7,6 +7,7 @@
 */
 package com.lxiya.xendercart.product.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.lxiya.xendercart.core.PageView;
+import com.lxiya.xendercart.core.UserContext;
 import com.lxiya.xendercart.core.errors.ProductErrors;
 import com.lxiya.xendercart.product.helper.ProductHelper;
 import com.lxiya.xendercart.product.model.request.CreateProductRequest;
@@ -40,6 +42,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product saveProduct(Product product) {
+        product.setUpdatedDate(new Date());
+        product.setModifiedBy(UserContext.user().getEmail());
         log.info("D045C5A8-B72D-47AF-840C-110595DB1560 saving product : {}", product);
         return productDao.getProductRepository().save(product);
     }

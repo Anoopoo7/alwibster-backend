@@ -28,7 +28,7 @@ public class JwtUtils {
 
     private static Date expire(String type) {
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MINUTE, type.equals(TokenConstance.refresh) ? 60 : 10);
+        calendar.add(Calendar.MINUTE, type.equals(TokenConstance.refresh) ? 60 : 60);
         return calendar.getTime();
     }
 
