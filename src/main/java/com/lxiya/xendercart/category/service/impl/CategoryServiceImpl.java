@@ -39,7 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private ProductService productService;
 
-    private CategoryView populateCategoryView(Category category, List<String> productIds) {
+    private CategoryView populateCategoryView(final Category category, final List<String> productIds) {
         List<ProductView> products = null;
         if (!productIds.isEmpty()) {
             products = productIds.stream().map(id -> {
@@ -51,7 +51,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryView createCategory(CreateCategoryRequest createCategoryRequest) {
+    public CategoryView createCategory(final CreateCategoryRequest createCategoryRequest) {
         log.info("7A28495D-2764-47FE-B01D-A91B828D1024 creating category with details {}", createCategoryRequest);
         Category category = CategoryHelper.constructCategoryFromCreateCategoryRequest(createCategoryRequest);
         category = categoryDao.getCategoryRepository().save(category);
@@ -59,7 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryView getCategory(String id) {
+    public CategoryView getCategory(final String id) {
         log.info("AB4C1A19-27EF-425B-A845-1BF6497DCB09 fetching category with id {}", id);
         if (StringUtils.isBlank(id)) {
             throw new RuntimeException(CategoryErrors.CATEGORY_ID_NULL);
@@ -72,7 +72,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryView toggleCategoryStatus(String id) {
+    public CategoryView toggleCategoryStatus(final String id) {
         log.info("C220212A-8A1E-4FEA-B77D-483B5A5BCE7C editing category status with category id : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new RuntimeException(CategoryErrors.CATEGORY_ID_NULL);
@@ -88,7 +88,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public PageView<CategoryView> getCategories(String searchTerm, Pageable pageable) {
+    public PageView<CategoryView> getCategories(final String searchTerm, Pageable pageable) {
         log.info("7B867260-521B-4CBE-B340-3323FE09EE25 fetching chategories with searchTerm : {}", searchTerm);
         PageView<Category> categoryPage = categoryDao.getCategoryRepository().searchCategories(searchTerm, pageable);
         List<CategoryView> CategoryViews = CategoryHelper.transformCategoriesToViews(categoryPage.getData());

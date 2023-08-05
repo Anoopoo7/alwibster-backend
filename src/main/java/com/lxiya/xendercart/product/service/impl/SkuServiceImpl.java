@@ -9,8 +9,6 @@ package com.lxiya.xendercart.product.service.impl;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +32,7 @@ public class SkuServiceImpl implements SkuService {
     private SkuDao skuDao;
 
     @Override
-    public CreateSkuView createSku(@Valid CreateSkuRequest createSkuRequest) {
+    public CreateSkuView createSku(final CreateSkuRequest createSkuRequest) {
         log.info("38BDBCD9-A4A1-4330-A1D3-15399124F741 creating sku with details :{}", createSkuRequest);
         Sku sku = SkuHelper.populateSkuFromCreateSkuRequest(createSkuRequest, createSkuRequest.getProductId());
         sku = skuDao.getSkuRepository().save(sku);
@@ -42,7 +40,7 @@ public class SkuServiceImpl implements SkuService {
     }
 
     @Override
-    public List<SkuView> getSkusByProductId(String id) {
+    public List<SkuView> getSkusByProductId(final String id) {
         log.info("A8515460-E97B-42B5-B60E-E28ED9EBB2D7 fetching product by id {}", id);
         if (StringUtils.isBlank(id)) {
             throw new RuntimeException(SkuErrors.PRODUCT_ID_NULL);

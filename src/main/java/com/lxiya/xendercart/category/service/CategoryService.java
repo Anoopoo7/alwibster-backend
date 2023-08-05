@@ -15,11 +15,11 @@ import com.lxiya.xendercart.core.PageView;
 
 public interface CategoryService {
 
-    CategoryView createCategory(CreateCategoryRequest createCategoryRequest);
+    CategoryView createCategory(final CreateCategoryRequest createCategoryRequest);
 
-    CategoryView getCategory(String id);
+    CategoryView getCategory(final String id);
 
-    CategoryView toggleCategoryStatus(String id);
+    CategoryView toggleCategoryStatus(final String id);
 
-    PageView<CategoryView> getCategories(String searchTerm, Pageable pageable);
+    PageView<CategoryView> getCategories(final String searchTerm, Pageable pageable);
 }
