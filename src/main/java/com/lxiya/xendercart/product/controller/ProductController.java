@@ -55,9 +55,9 @@ public class ProductController {
 
     @PatchMapping("/id/{id}")
     @PreAuthorize("hasAuthority('XEN_EDT_PRD')")
-    public ProductView getProductStatus(@PathVariable final String id) {
+    public ProductView toggleProductStatus(@PathVariable final String id) {
         log.info("238CDB02-C265-41C8-AB3C-6F9FD60C6A3C editing product status of id : {}", id);
-        return productService.getProductStatus(id);
+        return productService.toggleProductStatus(id);
     }
 
     @GetMapping("/search")

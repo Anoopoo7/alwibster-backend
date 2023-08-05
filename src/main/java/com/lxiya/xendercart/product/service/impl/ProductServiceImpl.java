@@ -83,7 +83,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductView getProductStatus(String id) {
+    public ProductView toggleProductStatus(String id) {
         log.info("261FF8C4-A91E-423F-844B-8379C1AA3A26 editing product status if id : {}", id);
         Product product = this.getProductById(id);
         if (null == product) {
