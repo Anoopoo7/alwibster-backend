@@ -28,7 +28,6 @@ public class SkuHelper {
         Sku sku = new Sku();
         BeanUtils.copyProperties(createSkuRequest, sku);
         sku.setProductId(productId);
-        sku.setModifiedBy(UserContext.user().getEmail());
         sku.setCreatedBy(UserContext.user().getEmail());
         sku.setActive(true);
         sku.setEnabled(true);
@@ -39,6 +38,12 @@ public class SkuHelper {
         CreateSkuView createSkuView = new CreateSkuView();
         BeanUtils.copyProperties(sku, createSkuView);
         return createSkuView;
+    }
+
+    public static SkuView transformSkuToView(Sku sku) {
+        SkuView skuView = new SkuView();
+        BeanUtils.copyProperties(sku, skuView);
+        return skuView;
     }
 
     public static List<SkuView> transformSkusToView(List<Sku> skus) {

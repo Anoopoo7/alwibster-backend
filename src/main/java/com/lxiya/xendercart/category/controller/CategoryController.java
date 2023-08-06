@@ -70,7 +70,7 @@ public class CategoryController {
      * @param id
      * @return CategoryView
      */
-    @PatchMapping("/id/{id}")
+    @PatchMapping("/edit/id/{id}")
     @PreAuthorize("hasAuthority('XEN_EDT_CAT')")
     public CategoryView toggleCategoryStatus(@PathVariable final String id) {
         log.info("DE59FDEA-02F5-4084-9D71-3BA022EE6035 editing category status with category id : {}", id);

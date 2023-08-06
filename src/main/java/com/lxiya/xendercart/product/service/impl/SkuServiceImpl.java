@@ -7,11 +7,13 @@
 */
 package com.lxiya.xendercart.product.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lxiya.xendercart.core.UserContext;
 import com.lxiya.xendercart.core.errors.SkuErrors;
 import com.lxiya.xendercart.core.utils.StringUtils;
 import com.lxiya.xendercart.product.helper.SkuHelper;
@@ -31,12 +33,18 @@ public class SkuServiceImpl implements SkuService {
     @Autowired
     private SkuDao skuDao;
 
+    private Sku saveSku(Sku sku) {
+        sku.setModifiedBy(UserContext.user().getEmail());
+        sku.setUpdatedDate(new Date());
+        log.info("9B1D3AD5-A4DC-4833-9324-978FF272F8C5 saving sku {}", sku);
+        return skuDao.getSkuRepository().save(sku);
+    }
+
     @Override
     public CreateSkuView createSku(final CreateSkuRequest createSkuRequest) {
         log.info("38BDBCD9-A4A1-4330-A1D3-15399124F741 creating sku with details :{}", createSkuRequest);
         Sku sku = SkuHelper.populateSkuFromCreateSkuRequest(createSkuRequest, createSkuRequest.getProductId());
-        sku = skuDao.getSkuRepository().save(sku);
-        return SkuHelper.transformSkewToCreateSkuView(sku);
+        return SkuHelper.transformSkewToCreateSkuView(this.saveSku(sku));
     }
 
     @Override
@@ -51,6 +59,21 @@ public class SkuServiceImpl implements SkuService {
             return null;
         }
         return SkuHelper.transformSkusToView(skus);
+    }
+
+    @Override
+    public SkuView toggleSkuStatus(String id) {
+        log.info("7F3A9549-9671-4DE1-839D-56499CAC7BE6 editing sku status with id : {}", id);
+        if (StringUtils.isBlank(id)) {
+            throw new RuntimeException(SkuErrors.SKU_ID_NULL);
+        }
+        Sku sku = skuDao.getSkuRepository().findByIdAndEnabled(id, true);
+        log.info("59079D42-0451-4B49-BA2C-7CF5ABADE4AC fetched sku {} with id {}", sku, id);
+        if (null == sku) {
+            throw new RuntimeException(SkuErrors.SKU_NOT_FOUND);
+        }
+        sku.setActive(!sku.isActive());
+        return SkuHelper.transformSkuToView(this.saveSku(sku));
     }
 
 }

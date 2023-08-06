@@ -12,6 +12,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lxiya.xendercart.product.model.request.CreateSkuRequest;
 import com.lxiya.xendercart.product.model.view.CreateSkuView;
+import com.lxiya.xendercart.product.model.view.SkuView;
 import com.lxiya.xendercart.product.service.SkuService;
 
 import lombok.extern.log4j.Log4j2;
@@ -43,5 +46,18 @@ public class SkuController {
     public CreateSkuView createSku(@Valid @RequestBody final CreateSkuRequest createSkuRequest) {
         log.info("732D78E3-F5E7-46E7-AD33-C1D2F877F0C9 creating sku with details : {}", createSkuRequest);
         return skuService.createSku(createSkuRequest);
+    }
+
+    /**
+     * * Toggle sku status
+     * 
+     * @param id
+     * @return SkuView
+     */
+    @PatchMapping("/edit/id/{id}")
+    @PreAuthorize("hasAuthority('XEN_EDT_SKU')")
+    public SkuView toggleSkuStatus(@PathVariable final String id) {
+        log.info("DEB46A7B-F08E-4DF2-A1FE-E7B92CB3C0DD editing sku status with id : {}", id);
+        return skuService.toggleSkuStatus(id);
     }
 }

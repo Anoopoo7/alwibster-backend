@@ -19,4 +19,6 @@ public interface SkuService {
 
     List<SkuView> getSkusByProductId(final String id);
 
+    SkuView toggleSkuStatus(String id);
+
 }

@@ -19,4 +19,6 @@ public interface SkuRepository extends MongoRepository<Sku, String> {
 
     List<Sku> findAllSkuByProductIdAndActiveAndEnabled(String id, boolean active, boolean enabled);
 
+    Sku findByIdAndEnabled(String id, boolean enabled);
+
 }

@@ -30,4 +30,8 @@ public class SkuErrors {
 
     public static final String PRODUCT_NOT_FOUND = "Product not found";
 
+    public static final String SKU_ID_NULL = "Sku id is mandatory";
+
+    public static final String SKU_NOT_FOUND = "Sku not found";
+
 }
