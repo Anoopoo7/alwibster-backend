@@ -21,4 +21,6 @@ public interface SkuService {
 
     SkuView toggleSkuStatus(String id);
 
+    SkuView getSku(String id);
+
 }

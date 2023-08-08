@@ -76,4 +76,18 @@ public class SkuServiceImpl implements SkuService {
         return SkuHelper.transformSkuToView(this.saveSku(sku));
     }
 
+    @Override
+    public SkuView getSku(String id) {
+        log.info("8FE50ECB-823E-4739-867F-853140D35AA8 fetch sku for id : {}", id);
+        if (StringUtils.isBlank(id)) {
+            throw new RuntimeException(SkuErrors.SKU_ID_NULL);
+        }
+        Sku sku = skuDao.getSkuRepository().findByIdAndEnabled(id, true);
+        log.info("30F1B101-B76E-48F2-ABF9-10468FA78E73 fetched sku {} with id {}", sku, id);
+        if (null == sku) {
+            throw new RuntimeException(SkuErrors.SKU_NOT_FOUND);
+        }
+        return SkuHelper.transformSkuToView(this.saveSku(sku));
+    }
+
 }

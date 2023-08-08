@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,4 +61,18 @@ public class SkuController {
         log.info("DEB46A7B-F08E-4DF2-A1FE-E7B92CB3C0DD editing sku status with id : {}", id);
         return skuService.toggleSkuStatus(id);
     }
+
+    /**
+     * Fetch sku details
+     * 
+     * @param id
+     * @return SkuView
+     */
+    @GetMapping("/id/{id}")
+    @PreAuthorize("hasAuthority('XEN_VWE_SKU')")
+    public SkuView getSku(@PathVariable final String id) {
+        log.info("DD7D5B36E-A80D-4D77-8B4D-CDFC13DDAE02 get sku by id : {}", id);
+        return skuService.getSku(id);
+    }
+
 }
