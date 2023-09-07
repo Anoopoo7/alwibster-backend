@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.lxiya.xendercart.product.persistance.entity.Sku;
 
-public interface SkuRepository extends MongoRepository<Sku, String> {
+public interface SkuRepository extends MongoRepository<Sku, String>, SkuRepositoryCustom {
 
     List<Sku> findByProductIdAndEnabled(String productId, boolean enabled);
 
