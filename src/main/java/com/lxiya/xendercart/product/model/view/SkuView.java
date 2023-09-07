@@ -36,6 +36,8 @@ public class SkuView {
 
     private String longDescription;
 
+    private boolean isDefault;
+
     private boolean active;
 
     private List<ProductMedias> medias;

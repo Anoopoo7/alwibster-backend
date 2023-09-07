@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 
 import com.lxiya.xendercart.core.UserContext;
 import com.lxiya.xendercart.product.model.request.CreateSkuRequest;
-import com.lxiya.xendercart.product.model.view.CreateSkuView;
 import com.lxiya.xendercart.product.model.view.SkuView;
 import com.lxiya.xendercart.product.persistance.entity.Sku;
 
@@ -32,12 +31,6 @@ public class SkuHelper {
         sku.setActive(true);
         sku.setEnabled(true);
         return sku;
-    }
-
-    public static CreateSkuView transformSkewToCreateSkuView(Sku sku) {
-        CreateSkuView createSkuView = new CreateSkuView();
-        BeanUtils.copyProperties(sku, createSkuView);
-        return createSkuView;
     }
 
     public static SkuView transformSkuToView(Sku sku) {

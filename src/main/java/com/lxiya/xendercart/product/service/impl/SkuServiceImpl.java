@@ -20,7 +20,6 @@ import com.lxiya.xendercart.core.errors.SkuErrors;
 import com.lxiya.xendercart.core.utils.StringUtils;
 import com.lxiya.xendercart.product.helper.SkuHelper;
 import com.lxiya.xendercart.product.model.request.CreateSkuRequest;
-import com.lxiya.xendercart.product.model.view.CreateSkuView;
 import com.lxiya.xendercart.product.model.view.SkuView;
 import com.lxiya.xendercart.product.persistance.dao.SkuDao;
 import com.lxiya.xendercart.product.persistance.entity.Sku;
@@ -43,10 +42,10 @@ public class SkuServiceImpl implements SkuService {
     }
 
     @Override
-    public CreateSkuView createSku(final CreateSkuRequest createSkuRequest) {
+    public SkuView createSku(final CreateSkuRequest createSkuRequest) {
         log.info("38BDBCD9-A4A1-4330-A1D3-15399124F741 creating sku with details :{}", createSkuRequest);
         Sku sku = SkuHelper.populateSkuFromCreateSkuRequest(createSkuRequest, createSkuRequest.getProductId());
-        return SkuHelper.transformSkewToCreateSkuView(this.saveSku(sku));
+        return SkuHelper.transformSkuToView(this.saveSku(sku));
     }
 
     @Override
