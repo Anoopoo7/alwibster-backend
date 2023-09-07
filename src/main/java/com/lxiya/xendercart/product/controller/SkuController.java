@@ -77,11 +77,18 @@ public class SkuController {
         return skuService.getSku(id);
     }
 
-    @GetMapping
+    /**
+     * Fetch all Skus of products
+     * 
+     * @param productId
+     * @param pageRequest
+     * @return PageView<SkuView>
+     */
+    @GetMapping("/productId/{productId}")
     @PreAuthorize("hasAuthority('XEN_VWE_SKU')")
-    public PageView<SkuView> getSkus(final Pageable pageRequest) {
-        log.info("A2417C76-E815-49BC-A974-775D069824E2 fetching skus");
-        return skuService.getSkus(pageRequest);
+    public PageView<SkuView> getSkus(@PathVariable final String productId, final Pageable pageRequest) {
+        log.info("A2417C76-E815-49BC-A974-775D069824E2 fetching skus for the product : {}", productId);
+        return skuService.getSkus(productId, pageRequest);
     }
 
 }

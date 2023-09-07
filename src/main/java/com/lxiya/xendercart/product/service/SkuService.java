@@ -26,6 +26,6 @@ public interface SkuService {
 
     SkuView getSku(String id);
 
-    PageView<SkuView> getSkus(final Pageable pageRequest);
+    PageView<SkuView> getSkus(final String productId, final Pageable pageRequest);
 
 }

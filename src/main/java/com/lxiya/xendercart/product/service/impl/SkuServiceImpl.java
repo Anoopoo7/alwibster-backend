@@ -93,10 +93,10 @@ public class SkuServiceImpl implements SkuService {
     }
 
     @Override
-    public PageView<SkuView> getSkus(final Pageable pageRequest) {
-        log.info("1305B324-4BDC-45E8-927A-CA85CB6E1D08 fetch skus with page {}", pageRequest);
-        PageView<Sku> skuPageView = skuDao.getSkuRepository().findSkues(pageRequest);
-        return null;
+    public PageView<SkuView> getSkus(final String productId, final Pageable pageRequest) {
+        log.info("1305B324-4BDC-45E8-927A-CA85CB6E1D08 fetch skus for product {} with page {}", productId, pageRequest);
+        PageView<Sku> skuPageView = skuDao.getSkuRepository().findSkues(productId, pageRequest);
+        return new PageView<SkuView>(SkuHelper.transformSkusToView(skuPageView.getData()), skuPageView);
     }
 
 }
