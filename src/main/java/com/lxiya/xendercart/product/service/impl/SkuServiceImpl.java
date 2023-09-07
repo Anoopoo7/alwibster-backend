@@ -11,8 +11,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.lxiya.xendercart.core.PageView;
 import com.lxiya.xendercart.core.UserContext;
 import com.lxiya.xendercart.core.errors.SkuErrors;
 import com.lxiya.xendercart.core.utils.StringUtils;
@@ -88,6 +90,13 @@ public class SkuServiceImpl implements SkuService {
             throw new RuntimeException(SkuErrors.SKU_NOT_FOUND);
         }
         return SkuHelper.transformSkuToView(this.saveSku(sku));
+    }
+
+    @Override
+    public PageView<SkuView> getSkus(final String productId, final Pageable pageRequest) {
+        log.info("1305B324-4BDC-45E8-927A-CA85CB6E1D08 fetch skus for product {} with page {}", productId, pageRequest);
+        PageView<Sku> skuPageView = skuDao.getSkuRepository().findSkues(productId, pageRequest);
+        return new PageView<SkuView>(SkuHelper.transformSkusToView(skuPageView.getData()), skuPageView);
     }
 
 }

@@ -10,6 +10,7 @@ package com.lxiya.xendercart.product.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lxiya.xendercart.core.PageView;
 import com.lxiya.xendercart.product.model.request.CreateSkuRequest;
 import com.lxiya.xendercart.product.model.view.CreateSkuView;
 import com.lxiya.xendercart.product.model.view.SkuView;
@@ -73,6 +75,20 @@ public class SkuController {
     public SkuView getSku(@PathVariable final String id) {
         log.info("DD7D5B36E-A80D-4D77-8B4D-CDFC13DDAE02 get sku by id : {}", id);
         return skuService.getSku(id);
+    }
+
+    /**
+     * Fetch all Skus of products
+     * 
+     * @param productId
+     * @param pageRequest
+     * @return PageView<SkuView>
+     */
+    @GetMapping("/productId/{productId}")
+    @PreAuthorize("hasAuthority('XEN_VWE_SKU')")
+    public PageView<SkuView> getSkus(@PathVariable final String productId, final Pageable pageRequest) {
+        log.info("A2417C76-E815-49BC-A974-775D069824E2 fetching skus for the product : {}", productId);
+        return skuService.getSkus(productId, pageRequest);
     }
 
 }
