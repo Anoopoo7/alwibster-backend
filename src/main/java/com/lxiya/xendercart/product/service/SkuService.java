@@ -13,12 +13,11 @@ import org.springframework.data.domain.Pageable;
 
 import com.lxiya.xendercart.core.PageView;
 import com.lxiya.xendercart.product.model.request.CreateSkuRequest;
-import com.lxiya.xendercart.product.model.view.CreateSkuView;
 import com.lxiya.xendercart.product.model.view.SkuView;
 
 public interface SkuService {
 
-    CreateSkuView createSku(final CreateSkuRequest createSkuRequest);
+    SkuView createSku(final CreateSkuRequest createSkuRequest);
 
     List<SkuView> getSkusByProductId(final String id);
 

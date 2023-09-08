@@ -10,8 +10,6 @@ package com.lxiya.xendercart.product.model.view;
 import java.util.List;
 import java.util.Map;
 
-import com.lxiya.xendercart.product.model.ProductMedias;
-
 import lombok.Data;
 
 @Data
@@ -23,15 +21,9 @@ public class ProductView {
 
     private boolean active;
 
-    private String defaultSkuId;
-
-    private List<SkuView> skus;
+    private List<String> skus;
 
     private String brandId;
-
-    private String categoryId;
-
-    private List<ProductMedias> defaultMedias;
 
     private List<String> addOns;
 

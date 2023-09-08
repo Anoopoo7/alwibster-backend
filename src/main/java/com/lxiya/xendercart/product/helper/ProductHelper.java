@@ -18,9 +18,7 @@ import com.lxiya.xendercart.core.UserContext;
 import com.lxiya.xendercart.core.utils.StringUtils;
 import com.lxiya.xendercart.product.model.request.CreateProductRequest;
 import com.lxiya.xendercart.product.model.request.EditProductRequest;
-import com.lxiya.xendercart.product.model.view.CreateProductView;
 import com.lxiya.xendercart.product.model.view.ProductView;
-import com.lxiya.xendercart.product.model.view.SkuView;
 import com.lxiya.xendercart.product.persistance.entity.Product;
 
 public class ProductHelper {
@@ -29,21 +27,15 @@ public class ProductHelper {
         Product product = new Product();
         BeanUtils.copyProperties(createProductRequest, product);
         product.setCreatedBy(UserContext.user().getEmail());
+        product.setSkus(new ArrayList<String>());
         product.setActive(true);
         product.setEnabled(true);
         return product;
     }
 
-    public static CreateProductView transformProductToCreateView(Product product) {
-        CreateProductView CreateProductView = new CreateProductView();
-        BeanUtils.copyProperties(product, CreateProductView);
-        return CreateProductView;
-    }
-
-    public static ProductView transformProductToView(Product product, List<SkuView> skus) {
+    public static ProductView transformProductToView(Product product) {
         ProductView productView = new ProductView();
         BeanUtils.copyProperties(product, productView);
-        productView.setSkus(skus);
         return productView;
     }
 
@@ -59,14 +51,8 @@ public class ProductHelper {
         if (!StringUtils.isBlank(editProductRequest.getName())) {
             product.setName(editProductRequest.getName());
         }
-        if (!StringUtils.isBlank(editProductRequest.getDefaultSkuId())) {
-            product.setDefaultSkuId(editProductRequest.getDefaultSkuId());
-        }
         if (!StringUtils.isBlank(editProductRequest.getBrandId())) {
             product.setBrandId(editProductRequest.getBrandId());
-        }
-        if (!StringUtils.isBlank(editProductRequest.getCategoryId())) {
-            product.setCategoryId(editProductRequest.getCategoryId());
         }
         if (!StringUtils.isBlank(editProductRequest.getSaleStartDate())) {
             product.setSaleStartDate(editProductRequest.getSaleStartDate());
@@ -76,9 +62,6 @@ public class ProductHelper {
         }
         if (null != editProductRequest.getRating()) {
             product.setRating(editProductRequest.getRating());
-        }
-        if (null != editProductRequest.getDefaultMedias()) {
-            product.setDefaultMedias(editProductRequest.getDefaultMedias());
         }
         if (null != editProductRequest.getAddOns()) {
             product.setAddOns(editProductRequest.getAddOns());

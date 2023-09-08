@@ -43,6 +43,8 @@ public class CreateSkuRequest {
     @NotBlank(message = SkuErrors.SHORT_DESCRIPTION_NULL)
     private String shortDescription;
 
+    private boolean isDefault;
+
     private String keyWords;
 
     @NotBlank(message = SkuErrors.LONG_DESCRIPTION_NULL)

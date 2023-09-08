@@ -7,6 +7,7 @@
 */
 package com.lxiya.xendercart.product.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,10 +21,11 @@ import com.lxiya.xendercart.core.errors.SkuErrors;
 import com.lxiya.xendercart.core.utils.StringUtils;
 import com.lxiya.xendercart.product.helper.SkuHelper;
 import com.lxiya.xendercart.product.model.request.CreateSkuRequest;
-import com.lxiya.xendercart.product.model.view.CreateSkuView;
 import com.lxiya.xendercart.product.model.view.SkuView;
 import com.lxiya.xendercart.product.persistance.dao.SkuDao;
+import com.lxiya.xendercart.product.persistance.entity.Product;
 import com.lxiya.xendercart.product.persistance.entity.Sku;
+import com.lxiya.xendercart.product.service.ProductService;
 import com.lxiya.xendercart.product.service.SkuService;
 
 import lombok.extern.log4j.Log4j2;
@@ -34,6 +36,8 @@ public class SkuServiceImpl implements SkuService {
 
     @Autowired
     private SkuDao skuDao;
+    @Autowired
+    private ProductService productService;
 
     private Sku saveSku(Sku sku) {
         sku.setModifiedBy(UserContext.user().getEmail());
@@ -43,10 +47,18 @@ public class SkuServiceImpl implements SkuService {
     }
 
     @Override
-    public CreateSkuView createSku(final CreateSkuRequest createSkuRequest) {
+    public SkuView createSku(final CreateSkuRequest createSkuRequest) {
         log.info("38BDBCD9-A4A1-4330-A1D3-15399124F741 creating sku with details :{}", createSkuRequest);
+        Product product = productService.getProductById(createSkuRequest.getProductId());
         Sku sku = SkuHelper.populateSkuFromCreateSkuRequest(createSkuRequest, createSkuRequest.getProductId());
-        return SkuHelper.transformSkewToCreateSkuView(this.saveSku(sku));
+        sku = this.saveSku(sku);
+        List<String> productSkus = null == product.getSkus()
+                ? new ArrayList<String>()
+                : product.getSkus();
+        productSkus.add(sku.getId());
+        product.setSkus(productSkus);
+        productService.saveProduct(product);
+        return SkuHelper.transformSkuToView(sku);
     }
 
     @Override

@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lxiya.xendercart.core.PageView;
 import com.lxiya.xendercart.product.model.request.CreateSkuRequest;
-import com.lxiya.xendercart.product.model.view.CreateSkuView;
 import com.lxiya.xendercart.product.model.view.SkuView;
 import com.lxiya.xendercart.product.service.SkuService;
 
@@ -42,11 +41,11 @@ public class SkuController {
      * Create sku
      * 
      * @param createSkuRequest
-     * @return CreateSkuView
+     * @return SkuView
      */
     @PostMapping
     @PreAuthorize("hasAuthority('XEN_CRT_SKU')")
-    public CreateSkuView createSku(@Valid @RequestBody final CreateSkuRequest createSkuRequest) {
+    public SkuView createSku(@Valid @RequestBody final CreateSkuRequest createSkuRequest) {
         log.info("732D78E3-F5E7-46E7-AD33-C1D2F877F0C9 creating sku with details : {}", createSkuRequest);
         return skuService.createSku(createSkuRequest);
     }

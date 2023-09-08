@@ -23,8 +23,6 @@ public class EditProductRequest {
     @Pattern(regexp = Patters.STRING_LIMIT_100, message = ProductErrors.NAME_LENGTH_LIMIT_EXCEEDS)
     private String name;
 
-    private String defaultSkuId;
-
     private String brandId;
 
     private String categoryId;
