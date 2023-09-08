@@ -10,24 +10,19 @@ package com.lxiya.xendercart.category.model.request;
 import java.util.List;
 
 import com.lxiya.xendercart.category.model.CategoryMedias;
-import com.lxiya.xendercart.product.model.view.ProductView;
 
 import lombok.Data;
 
 @Data
-public class CategoryView {
-
-    private String id;
+public class UpdateCategoryRequest {
 
     private String name;
 
-    private String description;
-
-    private boolean active;
-
-    private List<ProductView> products;
+    private List<String> productIds;
 
     private List<CategoryMedias> medias;
+
+    private String description;
 
     private List<String> childCategories;
 }

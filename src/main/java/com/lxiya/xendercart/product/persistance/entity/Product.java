@@ -26,8 +26,6 @@ public class Product extends BaseEntity {
 
     private String brandId;
 
-    private String categoryId;
-
     private List<String> skus;
 
     private List<String> addOns;

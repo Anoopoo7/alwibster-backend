@@ -54,9 +54,6 @@ public class ProductHelper {
         if (!StringUtils.isBlank(editProductRequest.getBrandId())) {
             product.setBrandId(editProductRequest.getBrandId());
         }
-        if (!StringUtils.isBlank(editProductRequest.getCategoryId())) {
-            product.setCategoryId(editProductRequest.getCategoryId());
-        }
         if (!StringUtils.isBlank(editProductRequest.getSaleStartDate())) {
             product.setSaleStartDate(editProductRequest.getSaleStartDate());
         }

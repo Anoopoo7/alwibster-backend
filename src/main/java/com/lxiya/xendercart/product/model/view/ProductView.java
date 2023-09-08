@@ -25,8 +25,6 @@ public class ProductView {
 
     private String brandId;
 
-    private String categoryId;
-
     private List<String> addOns;
 
     private List<String> childProducts;
