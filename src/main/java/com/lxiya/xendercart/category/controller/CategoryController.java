@@ -49,7 +49,8 @@ public class CategoryController {
     @PostMapping
     @PreAuthorize("hasAuthority('XEN_CRT_CAT')")
     public CategoryView createCategory(@Valid @RequestBody final CreateCategoryRequest createCategoryRequest) {
-        log.info("953EC037-62D1-4A9B-957A-8BA619C08E31 creating category with details : {}", createCategoryRequest);
+        log.info("953EC037-62D1-4A9B-957A-8BA619C08E31 creating category with details : {}",
+                createCategoryRequest);
         return categoryService.createCategory(createCategoryRequest);
     }
 
@@ -75,7 +76,8 @@ public class CategoryController {
     @PatchMapping("/edit/id/{id}")
     @PreAuthorize("hasAuthority('XEN_EDT_CAT')")
     public CategoryView toggleCategoryStatus(@PathVariable final String id) {
-        log.info("DE59FDEA-02F5-4084-9D71-3BA022EE6035 editing category status with category id : {}", id);
+        log.info("DE59FDEA-02F5-4084-9D71-3BA022EE6035 editing category status with category id : {}",
+                id);
         return categoryService.toggleCategoryStatus(id);
     }
 
@@ -90,10 +92,18 @@ public class CategoryController {
     @PreAuthorize("hasAuthority('XEN_VWE_CAT')")
     public PageView<CategoryView> getCategories(@RequestParam(required = false) final String searchTerm,
             final Pageable pageable) {
-        log.info("ADB342A2-47A2-4918-BB19-1367C199539F fetching chategories with searchTerm : {}", searchTerm);
+        log.info("ADB342A2-47A2-4918-BB19-1367C199539F fetching chategories with searchTerm : {}",
+                searchTerm);
         return categoryService.getCategories(searchTerm, pageable);
     }
 
+    /**
+     * Update category
+     * 
+     * @param id
+     * @param updateCategoryRequest
+     * @return CategoryView
+     */
     @PutMapping("/edit/id/{id}")
     @PreAuthorize("hasAuthority('XEN_EDT_CAT')")
     public CategoryView updateCategory(@PathVariable final String id,
