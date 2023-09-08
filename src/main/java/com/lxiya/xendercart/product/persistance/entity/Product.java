@@ -13,7 +13,6 @@ import java.util.Map;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.lxiya.xendercart.core.BaseEntity;
-import com.lxiya.xendercart.product.model.ProductMedias;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,13 +24,11 @@ public class Product extends BaseEntity {
 
     private String name;
 
-    private String defaultSkuId;
-
     private String brandId;
 
     private String categoryId;
 
-    private List<ProductMedias> defaultMedias;
+    private List<String> skus;
 
     private List<String> addOns;
 

@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lxiya.xendercart.core.PageView;
 import com.lxiya.xendercart.product.model.request.CreateProductRequest;
 import com.lxiya.xendercart.product.model.request.EditProductRequest;
-import com.lxiya.xendercart.product.model.view.CreateProductView;
 import com.lxiya.xendercart.product.model.view.ProductView;
 import com.lxiya.xendercart.product.service.ProductService;
 
@@ -45,11 +44,11 @@ public class ProductController {
      * Create product
      * 
      * @param createProductRequest
-     * @return CreateProductView
+     * @return ProductView
      */
     @PostMapping
     @PreAuthorize("hasAuthority('XEN_CRT_PRD')")
-    public CreateProductView createProduct(@Valid @RequestBody final CreateProductRequest createProductRequest) {
+    public ProductView createProduct(@Valid @RequestBody final CreateProductRequest createProductRequest) {
         log.info("17B2F987-ED79-4550-939A-FCDEEA1B027B creating product with details : {}", createProductRequest);
         return productService.createProduct(createProductRequest);
     }

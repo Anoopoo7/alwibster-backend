@@ -12,13 +12,14 @@ import org.springframework.data.domain.Pageable;
 import com.lxiya.xendercart.core.PageView;
 import com.lxiya.xendercart.product.model.request.CreateProductRequest;
 import com.lxiya.xendercart.product.model.request.EditProductRequest;
-import com.lxiya.xendercart.product.model.view.CreateProductView;
 import com.lxiya.xendercart.product.model.view.ProductView;
 import com.lxiya.xendercart.product.persistance.entity.Product;
 
 public interface ProductService {
 
-    CreateProductView createProduct(final CreateProductRequest createProductRequest);
+    ProductView createProduct(final CreateProductRequest createProductRequest);
+
+    Product getProductById(String productId);
 
     Product saveProduct(final Product product);
 
