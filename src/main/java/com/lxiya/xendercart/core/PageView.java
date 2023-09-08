@@ -25,7 +25,7 @@ public class PageView<T> {
         this.data = data;
         this.isStartPage = pageable.getPageNumber() == 0;
         this.count = data.size();
-        this.isEndPage = (Math.ceil((double) matches / (double) pageable.getPageSize()) - 1) == pageable
+        this.isEndPage = (Math.ceil((double) matches / (double) pageable.getPageSize()) - 1) <= pageable
                 .getPageNumber();
     }
 
